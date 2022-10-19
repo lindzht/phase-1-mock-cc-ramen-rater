@@ -120,23 +120,7 @@ fetch("http://localhost:3000/ramens/1")
     let comment = document.querySelector("#comment-display");
     comment.innerText = firstRamenData.comment;
 
-
-    //ADVANCED STEP 2: update rating + comment for ramen by submitting a form
-    //—changes should be reflected on frontend 
-
-    const editForm = document.querySelector("#edit-ramen");
-    console.log(editForm);
-
-    editForm.addEventListener("submit", (e) => {
-        e.preventDefault();
     
-        rating.textContent = e.target["new-rating"].value,
-        comment.textContent = e.target["new-comment"].value,
-
-        editForm.reset();
-
-        }
-    );
 
 })
 
