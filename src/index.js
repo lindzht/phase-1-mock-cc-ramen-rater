@@ -13,8 +13,6 @@ fetch("http://localhost:3000/ramens")
 .then (response => response.json())
 .then (ramenData => {
 
-    console.log(ramenData);
-
     ramenData.forEach(ramen => {
         ramenAppearInNavigationAndDIV(ramen);
         
@@ -46,17 +44,35 @@ function ramenDetailsAppearInDiv (ramen){
     ramenImage.src = ramen.image;
 
     let ramenName = document.querySelector(".name");
-    ramenName.innerText = ramen.name;
+    ramenName.textContent = ramen.name;
     
     let restaurantName = document.querySelector(".restaurant");
-    restaurantName.innerText = ramen.restaurant;
+    restaurantName.textContent = ramen.restaurant;
 
     let rating = document.querySelector("#rating-display");
-    rating.innerText = ramen.rating;
+    rating.textContent = ramen.rating;
 
     let comment = document.querySelector("#comment-display");
-    comment.innerText = ramen.comment;
+    comment.textContent = ramen.comment;
 
+    //ADVANCED STEP 2: update rating + comment for ramen by submitting a form
+    //—changes should be reflected on frontend 
+
+    const editForm = document.querySelector("#edit-ramen");
+    console.log(editForm);
+
+    editForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+    
+        rating.textContent = e.target["new-rating"].value,
+        comment.textContent = e.target["new-comment"].value,
+
+        editForm.reset();
+
+        }
+    );
+    
+    
 }
 
 
@@ -82,3 +98,55 @@ form.addEventListener("submit", (e) => {
     form.reset()
 }
 )
+
+
+//ADVANCED STEP 1: see details for first ramen as soon as page loads
+fetch("http://localhost:3000/ramens/1")
+.then (response => response.json())
+.then (firstRamenData => {
+
+    let ramenImage = document.querySelector(".detail-image");
+    ramenImage.src = firstRamenData.image;
+
+    let ramenName = document.querySelector(".name");
+    ramenName.innerText = firstRamenData.name;
+    
+    let restaurantName = document.querySelector(".restaurant");
+    restaurantName.innerText = firstRamenData.restaurant;
+
+    let rating = document.querySelector("#rating-display");
+    rating.innerText = firstRamenData.rating;
+
+    let comment = document.querySelector("#comment-display");
+    comment.innerText = firstRamenData.comment;
+
+
+    //ADVANCED STEP 2: update rating + comment for ramen by submitting a form
+    //—changes should be reflected on frontend 
+
+    const editForm = document.querySelector("#edit-ramen");
+    console.log(editForm);
+
+    editForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+    
+        rating.textContent = e.target["new-rating"].value,
+        comment.textContent = e.target["new-comment"].value,
+
+        editForm.reset();
+
+        }
+    );
+
+})
+
+
+
+
+
+
+
+
+//ADVANCED STEP 3: Delete a ramen
+//—add delete button
+//—should be removed from ramen-menu DIV + ramen-details
